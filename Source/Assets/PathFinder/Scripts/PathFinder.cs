@@ -136,8 +136,6 @@ namespace Yejun.Tool
 
             Node startNode = m_nodes[startPos];
             startNode.CalcCost(targetPos);
-            startNode.CurState = Node.State.Closed;
-            m_closed.Add(startNode);
 
             Node curNode = startNode;
             for (int i = 0; i < LIMIT_COUNT; i++)
@@ -152,11 +150,11 @@ namespace Yejun.Tool
                     break;
                 }
 
-                OpenChildNode(curNode, targetPos);
-
-                curNode = GetLowestCostOpenedNode();
                 curNode.CurState = Node.State.Closed;
                 m_closed.Add(curNode);
+
+                OpenChildNode(curNode, targetPos);
+                curNode = GetLowestCostOpenedNode();
             }
 
             Path.Clear();
